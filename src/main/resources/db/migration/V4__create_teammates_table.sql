@@ -1,0 +1,9 @@
+CREATE TABLE PROJECT_TEAMMATES  (
+  ID                          bigserial PRIMARY KEY     NOT NULL ,
+  TEAMMATE_ID                 VARCHAR (100)             NULL ,
+  PROJECT_ID                  bigint                    NULL
+    CONSTRAINT TEAMMATE_ID_FK REFERENCES PROJECTS
+);
+
+CREATE INDEX PROJECT_TEAMMATES_ID_INDEX
+  ON PROJECT_TEAMMATES(ID);
