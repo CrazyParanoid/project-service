@@ -84,32 +84,14 @@ public class Project extends AggregateRoot {
         this.lead = leadId;
     }
 
+    public ProjectSnapshot makeSnapshot(){
+        return new ProjectSnapshot(this.tasks,
+                this.teammates,
+                this.lead);
+    }
+
     public String key(){
         return this.key.getValue();
-    }
-
-    public String lead(){
-        return this.lead.getId();
-    }
-
-    public Set<String> teammates(){
-        Set<String> teammates = new HashSet<>();
-
-        if(CollectionUtils.isNotEmpty(this.teammates))
-            this.teammates.forEach(teammateId
-                    -> teammates.add(teammateId.getId()));
-
-        return teammates;
-    }
-
-    public Set<String> tasks(){
-        Set<String> tasks = new HashSet<>();
-
-        if(CollectionUtils.isNotEmpty(this.tasks))
-            this.tasks.forEach(taskId
-                    -> tasks.add(taskId.getId()));
-
-        return tasks;
     }
 
     @Override

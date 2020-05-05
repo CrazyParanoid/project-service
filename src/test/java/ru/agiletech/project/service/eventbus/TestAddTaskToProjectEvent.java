@@ -27,6 +27,7 @@ public class TestAddTaskToProjectEvent {
 
     private static final String PROJECT_KEY = "key";
     private static final String TASK_ID     = "taskId";
+    private static final String EVENT_NAME  = "eventName";
 
     @Autowired
     private Sink sink;
@@ -55,6 +56,7 @@ public class TestAddTaskToProjectEvent {
         sink.input()
                 .send(MessageBuilder
                         .withPayload(event)
+                        .setHeader(EVENT_NAME, "ru.agiletech.task.service.domain.task.TaskCreated")
                         .build());
     }
 

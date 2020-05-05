@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ru.agiletech.project.service.domain.project.Project;
+import ru.agiletech.project.service.domain.project.ProjectSnapshot;
 
 @Component
 @RequiredArgsConstructor
@@ -14,10 +15,12 @@ public class ProjectAssembler {
     ProjectDTO writeDTO(Project project){
         ProjectDTO projectDTO = modelMapper.map(project, ProjectDTO.class);
 
-        projectDTO.setLead(project.lead());
+        ProjectSnapshot snapshot = project.makeSnapshot();
+
+        projectDTO.setLead(snapshot.getLead());
         projectDTO.setKey(project.key());
-        projectDTO.setTasks(project.tasks());
-        projectDTO.setTeammates(project.teammates());
+        projectDTO.setTasks(snapshot.getTasks());
+        projectDTO.setTeammates(snapshot.getTeammates());
 
         return projectDTO;
     }

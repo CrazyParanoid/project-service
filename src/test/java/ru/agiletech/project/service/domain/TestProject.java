@@ -11,6 +11,7 @@ import ru.agiletech.project.service.Application;
 import ru.agiletech.project.service.application.project.ProjectDTO;
 import ru.agiletech.project.service.domain.project.Project;
 import ru.agiletech.project.service.domain.project.ProjectFactory;
+import ru.agiletech.project.service.domain.project.ProjectSnapshot;
 import ru.agiletech.project.service.domain.task.TaskId;
 import ru.agiletech.project.service.domain.teammate.TeammateId;
 
@@ -33,8 +34,10 @@ public class TestProject {
     public void testCreate(){
         this.project = createProject();
 
+        ProjectSnapshot snapshot = project.makeSnapshot();
+
         assertNotNull(this.project.key());
-        assertNotNull(this.project.lead());
+        assertNotNull(snapshot.getLead());
     }
 
     @Test
@@ -46,9 +49,11 @@ public class TestProject {
 
         project.addTeammate(teammateId);
 
+        ProjectSnapshot snapshot = project.makeSnapshot();
+
         assertNotNull(this.project.key());
-        assertNotNull(this.project.lead());
-        assertNotNull(this.project.teammates());
+        assertNotNull(snapshot.getLead());
+        assertNotNull(snapshot.getTeammates());
     }
 
     @Test
@@ -60,8 +65,10 @@ public class TestProject {
 
         project.changeLead(leadId);
 
+        ProjectSnapshot snapshot = project.makeSnapshot();
+
         assertNotNull(this.project.key());
-        assertNotNull(this.project.lead());
+        assertNotNull(snapshot.getLead());
     }
 
     @Test
@@ -72,8 +79,10 @@ public class TestProject {
 
         project.changeDescription(description);
 
+        ProjectSnapshot snapshot = project.makeSnapshot();
+
         assertNotNull(this.project.key());
-        assertNotNull(this.project.lead());
+        assertNotNull(snapshot.getLead());
     }
 
     @Test
@@ -85,9 +94,11 @@ public class TestProject {
 
         project.addTask(taskId);
 
+        ProjectSnapshot snapshot = project.makeSnapshot();
+
         assertNotNull(this.project.key());
-        assertNotNull(this.project.lead());
-        assertNotNull(this.project.tasks());
+        assertNotNull(snapshot.getLead());
+        assertNotNull(snapshot.getTasks());
     }
 
     private Project createProject(){
